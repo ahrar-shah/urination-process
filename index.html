@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Urinary System Learning Platform</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f0f8ff;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #4a90e2, #63b3ed);
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .intro {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .intro h2 {
+            color: #4a90e2;
+            margin-bottom: 15px;
+        }
+        
+        .model-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+        
+        .gender-selector {
+            display: flex;
+            margin-bottom: 20px;
+            gap: 20px;
+        }
+        
+        .gender-btn {
+            padding: 10px 20px;
+            background-color: #4a90e2;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        
+        .gender-btn.active {
+            background-color: #2c5282;
+        }
+        
+        .gender-btn:hover {
+            background-color: #63b3ed;
+        }
+        
+        .anatomy-model {
+            width: 100%;
+            max-width: 600px;
+            height: 400px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            position: relative;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+        
+        .organ {
+            position: absolute;
+            cursor: pointer;
+            transition: transform 0.3s, filter 0.3s;
+        }
+        
+        .organ:hover {
+            transform: scale(1.05);
+            filter: drop-shadow(0 0 8px rgba(74, 144, 226, 0.7));
+        }
+        
+        .organ-info {
+            width: 100%;
+            max-width: 600px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            margin-bottom: 30px;
+            min-height: 200px;
+        }
+        
+        .organ-info h3 {
+            color: #4a90e2;
+            margin-bottom: 10px;
+            border-bottom: 2px solid #63b3ed;
+            padding-bottom: 5px;
+        }
+        
+        .quiz-section {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .quiz-section h2 {
+            color: #4a90e2;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .question {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #f8fafc;
+            border-radius: 8px;
+            border-left: 4px solid #4a90e2;
+        }
+        
+        .question h3 {
+            margin-bottom: 10px;
+        }
+        
+        .options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        
+        .option {
+            padding: 10px;
+            background-color: #ebf4ff;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .option:hover {
+            background-color: #d6e6ff;
+        }
+        
+        .option.selected {
+            background-color: #4a90e2;
+            color: white;
+        }
+        
+        .submit-btn {
+            display: block;
+            margin: 20px auto;
+            padding: 12px 30px;
+            background-color: #4a90e2;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+        
+        .submit-btn:hover {
+            background-color: #63b3ed;
+        }
+        
+        .result {
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+            background-color: #4a90e2;
+            color: white;
+        }
+        
+        @media (max-width: 768px) {
+            .options {
+                grid-template-columns: 1fr;
+            }
+            
+            .anatomy-model {
+                height: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Human Urinary System</h1>
+        <p>An Interactive Learning Experience for Class 8 Students</p>
+    </header>
+    
+    <div class="container">
+        <section class="intro">
+            <h2>Understanding the Urinary System</h2>
+            <p>The urinary system, also known as the renal system, produces, stores, and eliminates urine. It includes the kidneys, ureters, bladder, and urethra. Click on different organs in the model to learn more about how they work together to remove waste from your body.</p>
+        </section>
+        
+        <section class="model-section">
+            <div class="gender-selector">
+                <button class="gender-btn active" id="male-btn">Male Anatomy</button>
+                <button class="gender-btn" id="female-btn">Female Anatomy</button>
+            </div>
+            
+            <div class="anatomy-model" id="anatomy-model">
+                <!-- Male urinary system by default -->
+                <div class="organ" id="kidneys" style="left: 150px; top: 80px; width: 120px; height: 60px; background-color: #ff6b6b; border-radius: 30px;"></div>
+                <div class="organ" id="ureters" style="left: 160px; top: 150px; width: 10px; height: 120px; background-color: #4ecdc4;"></div>
+                <div class="organ" id="bladder" style="left: 120px; top: 270px; width: 90px; height: 70px; background-color: #ffe66d; border-radius: 20px 20px 0 0;"></div>
+                <div class="organ" id="urethra" style="left: 155px; top: 340px; width: 8px; height: 50px; background-color: #4ecdc4;"></div>
+            </div>
+            
+            <div class="organ-info" id="organ-info">
+                <h3>Welcome to the Urinary System Explorer</h3>
+                <p>Click on any organ in the diagram to learn about its structure and function in the urinary system. The urinary system is essential for removing waste from your body and maintaining proper balance of water and minerals.</p>
+            </div>
+        </section>
+        
+        <section class="quiz-section">
+            <h2>Test Your Knowledge: Urinary System Quiz</h2>
+            
+            <div class="question">
+                <h3>1. What is the primary function of the kidneys?</h3>
+                <div class="options">
+                    <div class="option">A) Pump blood</div>
+                    <div class="option">B) Filter waste from blood</div>
+                    <div class="option">C) Digest food</div>
+                    <div class="option">D) Produce hormones</div>
+                </div>
+            </div>
+            
+            <div class="question">
+                <h3>2. How many kidneys does a healthy human have?</h3>
+                <div class="options">
+                    <div class="option">A) One</div>
+                    <div class="option">B) Two</div>
+                    <div class="option">C) Three</div>
+                    <div class="option">D) Four</div>
+                </div>
+            </div>
+            
+            <div class="question">
+                <h3>3. What is the tube that carries urine from the kidney to the bladder called?</h3>
+                <div class="options">
+                    <div class="option">A) Urethra</div>
+                    <div class="option">B) Ureter</div>
+                    <div class="option">C) Nephron</div>
+                    <div class="option">D) Tubule</div>
+                </div>
+            </div>
+            
+            <div class="question">
+                <h3>4. What is the muscular organ that stores urine?</h3>
+                <div class="options">
+                    <div class="option">A) Kidney</div>
+                    <div class="option">B) Ureter</div>
+                    <div class="option">C) Bladder</div>
+                    <div class="option">D) Urethra</div>
+                </div>
+            </div>
+            
+            <div class="question">
+                <h3>5. What is the functional unit of the kidney called?</h3>
+                <div class="options">
+                    <div class="option">A) Neuron</div>
+                    <div class="option">B) Nephron</div>
+                    <div class="option">C) Alveoli</div>
+                    <div class="option">D) Villi</div>
+                </div>
+            </div>
+            
+            <div class="question">
+                <h3>6. Which waste product gives urine its yellow color?</h3>
+                <div class="options">
+                    <div class="option">A) Urea</div>
+                    <div class="option">B) Uric acid</div>
+                    <div class="option">C) Creatinine</div>
+                    <div class="option">D) Urobilin</div>
+                </div>
+            </div>
+            
+            <div class="question">
+                <h3>7. Approximately how much urine can an adult bladder hold?</h3>
+                <div class="options">
+                    <div class="option">A) 100-200 ml</div>
+                    <div class="option">B) 300-400 ml</div>
+                    <div class="option">C) 500-600 ml</div>
+                    <div class="option">D) 700-800 ml</div>
+                </div>
+            </div>
+            
+            <div class="question">
+                <h3>8. What is the process of removing waste from the body called?</h3>
+                <div class="options">
+                    <div class="option">A) Digestion</div>
+                    <div class="option">B) Respiration</div>
+                    <div class="option">C) Excretion</div>
+                    <div class="option">D) Circulation</div>
+                </div>
+            </div>
+            
+            <div class="question">
+                <h3>9. Which hormone helps the kidneys regulate water balance?</h3>
+                <div class="options">
+                    <div class="option">A) Insulin</div>
+                    <div class="option">B) Adrenaline</div>
+                    <div class="option">C) Estrogen</div>
+                    <div class="option">D) Antidiuretic hormone (ADH)</div>
+                </div>
+            </div>
+            
+            <div class="question">
+                <h3>10. What is the medical term for the production of urine?</h3>
+                <div class="options">
+                    <div class="option">A) Filtration</div>
+                    <div class="option">B) Micturition</div>
+                    <div class="option">C) Diuresis</div>
+                    <div class="option">D) Reabsorption</div>
+                </div>
+            </div>
+            
+            <button class="submit-btn" id="submit-quiz">Submit Answers</button>
+            
+            <div class="result" id="quiz-result"></div>
+        </section>
+    </div>
+    
+    <footer>
+        <p>© 2023 Human Urinary System Educational Website | Designed for Class 8 Science Students</p>
+    </footer>
+
+    <script>
+        // Organ information
+        const organInfo = {
+            kidneys: {
+                title: "Kidneys",
+                description: "The kidneys are two bean-shaped organs located on either side of the spine, just below the rib cage. They filter waste products from the blood and produce urine. Each kidney contains about one million tiny filtering units called nephrons. The kidneys also help regulate blood pressure, produce red blood cells, and maintain the balance of minerals and water in the body."
+            },
+            ureters: {
+                title: "Ureters",
+                description: "The ureters are two thin tubes, each about 25-30 cm long, that carry urine from the kidneys to the bladder. Muscles in the ureter walls continually tighten and relax to force urine downward and away from the kidneys. A small amount of urine is passed into the bladder every 10-15 seconds through these peristaltic movements."
+            },
+            bladder: {
+                title: "Bladder",
+                description: "The bladder is a hollow, muscular organ shaped like a balloon that sits in the pelvis. It stores urine until it's time to urinate. A healthy adult bladder can hold up to 400-600 ml of urine. The bladder wall relaxes as it fills with urine and contracts when emptying. The brain signals when the bladder is full, creating the urge to urinate."
+            },
+            urethra: {
+                title: "Urethra",
+                description: "The urethra is the tube that carries urine from the bladder to the outside of the body. In males, the urethra is about 20 cm long and also carries semen. In females, the urethra is much shorter, about 4 cm long. A ring of muscles called the sphincter keeps the urethra closed to prevent leakage until you're ready to urinate."
+            }
+        };
+
+        // Set up organ click events
+        document.querySelectorAll('.organ').forEach(organ => {
+            organ.addEventListener('click', () => {
+                const organId = organ.id;
+                const info = organInfo[organId];
+                
+                document.getElementById('organ-info').innerHTML = `
+                    <h3>${info.title}</h3>
+                    <p>${info.description}</p>
+                `;
+            });
+        });
+
+        // Gender selector functionality
+        const maleBtn = document.getElementById('male-btn');
+        const femaleBtn = document.getElementById('female-btn');
+        const anatomyModel = document.getElementById('anatomy-model');
+        
+        maleBtn.addEventListener('click', () => {
+            maleBtn.classList.add('active');
+            femaleBtn.classList.remove('active');
+            
+            // Update the model for male (default view)
+            anatomyModel.innerHTML = `
+                <div class="organ" id="kidneys" style="left: 150px; top: 80px; width: 120px; height: 60px; background-color: #ff6b6b; border-radius: 30px;"></div>
+                <div class="organ" id="ureters" style="left: 160px; top: 150px; width: 10px; height: 120px; background-color: #4ecdc4;"></div>
+                <div class="organ" id="bladder" style="left: 120px; top: 270px; width: 90px; height: 70px; background-color: #ffe66d; border-radius: 20px 20px 0 0;"></div>
+                <div class="organ" id="urethra" style="left: 155px; top: 340px; width: 8px; height: 50px; background-color: #4ecdc4;"></div>
+            `;
+            
+            // Reattach event listeners to the new organs
+            document.querySelectorAll('.organ').forEach(organ => {
+                organ.addEventListener('click', () => {
+                    const organId = organ.id;
+                    const info = organInfo[organId];
+                    
+                    document.getElementById('organ-info').innerHTML = `
+                        <h3>${info.title}</h3>
+                        <p>${info.description}</p>
+                    `;
+                });
+            });
+        });
+        
+        femaleBtn.addEventListener('click', () => {
+            femaleBtn.classList.add('active');
+            maleBtn.classList.remove('active');
+            
+            // Update the model for female (shorter urethra)
+            anatomyModel.innerHTML = `
+                <div class="organ" id="kidneys" style="left: 150px; top: 80px; width: 120px; height: 60px; background-color: #ff6b6b; border-radius: 30px;"></div>
+                <div class="organ" id="ureters" style="left: 160px; top: 150px; width: 10px; height: 120px; background-color: #4ecdc4;"></div>
+                <div class="organ" id="bladder" style="left: 120px; top: 270px; width: 90px; height: 70px; background-color: #ffe66d; border-radius: 20px 20px 0 0;"></div>
+                <div class="organ" id="urethra" style="left: 155px; top: 340px; width: 8px; height: 30px; background-color: #4ecdc4;"></div>
+            `;
+            
+            // Reattach event listeners to the new organs
+            document.querySelectorAll('.organ').forEach(organ => {
+                organ.addEventListener('click', () => {
+                    const organId = organ.id;
+                    const info = organInfo[organId];
+                    
+                    document.getElementById('organ-info').innerHTML = `
+                        <h3>${info.title}</h3>
+                        <p>${info.description}</p>
+                    `;
+                });
+            });
+        });
+
+        // Quiz functionality
+        document.getElementById('submit-quiz').addEventListener('click', () => {
+            const answers = [
+                'B', // Q1
+                'B', // Q2
+                'B', // Q3
+                'C', // Q4
+                'B', // Q5
+                'D', // Q6
+                'C', // Q7
+                'C', // Q8
+                'D', // Q9
+                'C'  // Q10
+            ];
+            
+            let score = 0;
+            const questions = document.querySelectorAll('.question');
+            
+            questions.forEach((question, index) => {
+                const selectedOption = question.querySelector('.option.selected');
+                if (selectedOption) {
+                    const userAnswer = selectedOption.textContent.trim().charAt(0);
+                    if (userAnswer === answers[index]) {
+                        score++;
+                    }
+                }
+            });
+            
+            const resultElement = document.getElementById('quiz-result');
+            resultElement.textContent = `You scored ${score} out of ${answers.length}!`;
+            
+            if (score >= 8) {
+                resultElement.style.backgroundColor = '#c6f6d5';
+                resultElement.style.color = '#22543d';
+            } else if (score >= 5) {
+                resultElement.style.backgroundColor = '#feebc8';
+                resultElement.style.color = '#744210';
+            } else {
+                resultElement.style.backgroundColor = '#fed7d7';
+                resultElement.style.color = '#742a2a';
+            }
+        });
+        
+        // Option selection
+        document.querySelectorAll('.option').forEach(option => {
+            option.addEventListener('click', () => {
+                // Remove any existing selection in this question
+                const question = option.closest('.question');
+                question.querySelectorAll('.option').forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+                
+                // Select the clicked option
+                option.classList.add('selected');
+            });
+        });
+    </script>
+</body>
+</html>
