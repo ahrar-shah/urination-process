@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Urinary System Learning Platform</title>
+    <title>Uniranry System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -13,17 +14,11 @@
         }
         
         body {
-            background-color: #f0f8ff;
-            color: #333;
+            background: linear-gradient(135deg, #1a2a6c, #2b5876, #4e4376);
+            color: #fff;
             line-height: 1.6;
-        }
-        
-        header {
-            background: linear-gradient(135deg, #4a90e2, #63b3ed);
-            color: white;
-            padding: 1rem;
-            text-align: center;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            min-height: 100vh;
+            overflow-x: hidden;
         }
         
         .container {
@@ -32,174 +27,276 @@
             padding: 20px;
         }
         
-        .intro {
+        header {
             text-align: center;
+            padding: 20px 0;
             margin-bottom: 30px;
-            padding: 20px;
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
         
-        .intro h2 {
-            color: #4a90e2;
-            margin-bottom: 15px;
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
         }
         
-        .model-section {
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .main-content {
             display: flex;
-            flex-direction: column;
-            align-items: center;
+            flex-wrap: wrap;
+            gap: 30px;
             margin-bottom: 40px;
         }
         
-        .gender-selector {
-            display: flex;
+        .model-section {
+            flex: 1;
+            min-width: 300px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+        }
+        
+        .model-title {
+            text-align: center;
             margin-bottom: 20px;
-            gap: 20px;
+            color: #4fc3f7;
         }
         
-        .gender-btn {
-            padding: 10px 20px;
-            background-color: #4a90e2;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: background-color 0.3s;
-        }
-        
-        .gender-btn.active {
-            background-color: #2c5282;
-        }
-        
-        .gender-btn:hover {
-            background-color: #63b3ed;
-        }
-        
-        .anatomy-model {
-            width: 100%;
-            max-width: 600px;
-            height: 400px;
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        .model-container {
             position: relative;
-            margin-bottom: 20px;
+            height: 400px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
             overflow: hidden;
+        }
+        
+        .human-body {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 200px;
+            height: 350px;
+            background: linear-gradient(to right, #78909c, #90a4ae);
+            border-radius: 100px 100px 30px 30px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        }
+        
+        .organs-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
         }
         
         .organ {
             position: absolute;
             cursor: pointer;
-            transition: transform 0.3s, filter 0.3s;
+            transition: all 0.3s ease;
+            z-index: 10;
+            filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.5));
         }
         
         .organ:hover {
-            transform: scale(1.05);
-            filter: drop-shadow(0 0 8px rgba(74, 144, 226, 0.7));
+            transform: scale(1.1);
+            z-index: 100;
         }
         
-        .organ-info {
-            width: 100%;
-            max-width: 600px;
-            background-color: white;
-            padding: 20px;
+        .kidneys {
+            left: 60%;
+            top: 30%;
+            width: 50px;
+            height: 30px;
+            background: linear-gradient(45deg, #ff5252, #ff7675);
             border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-            margin-bottom: 30px;
-            min-height: 200px;
+            transform: rotate(-20deg);
         }
         
-        .organ-info h3 {
-            color: #4a90e2;
+        .kidneys::before {
+            content: '';
+            position: absolute;
+            left: -30px;
+            top: 0;
+            width: 50px;
+            height: 30px;
+            background: linear-gradient(45deg, #ff5252, #ff7675);
+            border-radius: 10px;
+            transform: rotate(40deg);
+        }
+        
+        .ureters {
+            left: 63%;
+            top: 40%;
+            width: 10px;
+            height: 80px;
+            background: linear-gradient(to bottom, #74b9ff, #0984e3);
+            border-radius: 5px;
+        }
+        
+        .ureters::before {
+            content: '';
+            position: absolute;
+            left: -25px;
+            top: 0;
+            width: 10px;
+            height: 80px;
+            background: linear-gradient(to bottom, #74b9ff, #0984e3);
+            border-radius: 5px;
+        }
+        
+        .bladder {
+            left: 58%;
+            top: 60%;
+            width: 40px;
+            height: 50px;
+            background: linear-gradient(to bottom, #fdcb6e, #e17055);
+            border-radius: 10px 10px 5px 5px;
+            transform: rotate(10deg);
+        }
+        
+        .urethra {
+            left: 60%;
+            top: 80%;
+            width: 8px;
+            height: 50px;
+            background: linear-gradient(to bottom, #00cec9, #00a8ff);
+            border-radius: 0 0 4px 4px;
+        }
+        
+        .info-section {
+            flex: 1;
+            min-width: 300px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+        }
+        
+        .info-title {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #4fc3f7;
+        }
+        
+        .info-content {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            padding: 20px;
+            height: 320px;
+            overflow-y: auto;
+        }
+        
+        .info-content h3 {
+            color: #74b9ff;
             margin-bottom: 10px;
-            border-bottom: 2px solid #63b3ed;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             padding-bottom: 5px;
         }
         
-        .quiz-section {
-            background-color: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        .info-content p {
+            margin-bottom: 15px;
+            line-height: 1.6;
         }
         
-        .quiz-section h2 {
-            color: #4a90e2;
-            margin-bottom: 20px;
+        .info-content ul {
+            padding-left: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .info-content li {
+            margin-bottom: 8px;
+        }
+        
+        .quiz-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 30px;
+            margin-top: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+        }
+        
+        .quiz-title {
             text-align: center;
+            margin-bottom: 25px;
+            color: #4fc3f7;
         }
         
         .question {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            padding: 20px;
             margin-bottom: 20px;
-            padding: 15px;
-            background-color: #f8fafc;
-            border-radius: 8px;
-            border-left: 4px solid #4a90e2;
         }
         
         .question h3 {
-            margin-bottom: 10px;
+            margin-bottom: 15px;
+            color: #74b9ff;
         }
         
         .options {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 10px;
+            gap: 15px;
         }
         
         .option {
-            padding: 10px;
-            background-color: #ebf4ff;
-            border-radius: 5px;
+            padding: 12px;
+            background: rgba(55, 114, 255, 0.2);
+            border-radius: 10px;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: background 0.3s;
         }
         
         .option:hover {
-            background-color: #d6e6ff;
+            background: rgba(55, 114, 255, 0.4);
         }
         
         .option.selected {
-            background-color: #4a90e2;
-            color: white;
+            background: rgba(55, 114, 255, 0.6);
         }
         
         .submit-btn {
             display: block;
-            margin: 20px auto;
-            padding: 12px 30px;
-            background-color: #4a90e2;
+            margin: 30px auto 20px;
+            padding: 15px 40px;
+            background: linear-gradient(to right, #4facfe, #00f2fe);
             color: white;
             border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
+            border-radius: 50px;
+            font-size: 1.1rem;
             font-weight: bold;
-            transition: background-color 0.3s;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
         }
         
         .submit-btn:hover {
-            background-color: #63b3ed;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
         
         .result {
             text-align: center;
-            font-size: 18px;
+            font-size: 1.2rem;
             font-weight: bold;
-            margin-top: 20px;
             padding: 15px;
-            border-radius: 8px;
+            border-radius: 10px;
+            margin-top: 20px;
+            background: rgba(0, 0, 0, 0.2);
         }
         
         footer {
             text-align: center;
             padding: 20px;
             margin-top: 40px;
-            background-color: #4a90e2;
-            color: white;
+            color: rgba(255, 255, 255, 0.7);
         }
         
         @media (max-width: 768px) {
@@ -207,54 +304,103 @@
                 grid-template-columns: 1fr;
             }
             
-            .anatomy-model {
+            .model-container {
                 height: 300px;
             }
+            
+            header h1 {
+                font-size: 2rem;
+            }
+        }
+        
+        .organ-label {
+            position: absolute;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 10px;
+            font-size: 12px;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s;
+            z-index: 1000;
+        }
+        
+        .organ:hover + .organ-label {
+            opacity: 1;
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .highlight {
+            filter: drop-shadow(0 0 8px #4fc3f7);
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>Human Urinary System</h1>
-        <p>An Interactive Learning Experience for Class 8 Students</p>
-    </header>
-    
     <div class="container">
-        <section class="intro">
-            <h2>Understanding the Urinary System</h2>
-            <p>The urinary system, also known as the renal system, produces, stores, and eliminates urine. It includes the kidneys, ureters, bladder, and urethra. Click on different organs in the model to learn more about how they work together to remove waste from your body.</p>
-        </section>
+        <header>
+            <h1>3D Urinary System Explorer</h1>
+            <p>Interactive Male Urinary System - Click on organs to learn more</p>
+        </header>
         
-        <section class="model-section">
-            <div class="gender-selector">
-                <button class="gender-btn active" id="male-btn">Male Anatomy</button>
-                <button class="gender-btn" id="female-btn">Female Anatomy</button>
+        <div class="main-content">
+            <div class="model-section">
+                <h2 class="model-title">Interactive 3D Model</h2>
+                <div class="model-container">
+                    <div class="human-body">
+                        <div class="organs-container">
+                            <div class="organ kidneys pulse" id="kidneys"></div>
+                            <div class="organ-label" style="left: 70%; top: 30%;">Kidneys</div>
+                            
+                            <div class="organ ureters" id="ureters"></div>
+                            <div class="organ-label" style="left: 70%; top: 50%;">Ureters</div>
+                            
+                            <div class="organ bladder" id="bladder"></div>
+                            <div class="organ-label" style="left: 65%; top: 65%;">Bladder</div>
+                            
+                            <div class="organ urethra" id="urethra"></div>
+                            <div class="organ-label" style="left: 65%; top: 85%;">Urethra</div>
+                        </div>
+                    </div>
+                </div>
             </div>
             
-            <div class="anatomy-model" id="anatomy-model">
-                <!-- Male urinary system by default -->
-                <div class="organ" id="kidneys" style="left: 150px; top: 80px; width: 120px; height: 60px; background-color: #ff6b6b; border-radius: 30px;"></div>
-                <div class="organ" id="ureters" style="left: 160px; top: 150px; width: 10px; height: 120px; background-color: #4ecdc4;"></div>
-                <div class="organ" id="bladder" style="left: 120px; top: 270px; width: 90px; height: 70px; background-color: #ffe66d; border-radius: 20px 20px 0 0;"></div>
-                <div class="organ" id="urethra" style="left: 155px; top: 340px; width: 8px; height: 50px; background-color: #4ecdc4;"></div>
+            <div class="info-section">
+                <h2 class="info-title">Organ Information</h2>
+                <div class="info-content" id="info-content">
+                    <h3>Welcome to the Urinary System Explorer!</h3>
+                    <p>Click on any organ in the 3D model to learn about its structure and function.</p>
+                    <p>The urinary system is responsible for removing waste from the blood and regulating fluid balance in the body.</p>
+                    <p>It consists of:</p>
+                    <ul>
+                        <li>Two kidneys</li>
+                        <li>Two ureters</li>
+                        <li>One urinary bladder</li>
+                        <li>One urethra</li>
+                    </ul>
+                </div>
             </div>
-            
-            <div class="organ-info" id="organ-info">
-                <h3>Welcome to the Urinary System Explorer</h3>
-                <p>Click on any organ in the diagram to learn about its structure and function in the urinary system. The urinary system is essential for removing waste from your body and maintaining proper balance of water and minerals.</p>
-            </div>
-        </section>
+        </div>
         
-        <section class="quiz-section">
-            <h2>Test Your Knowledge: Urinary System Quiz</h2>
+        <div class="quiz-section">
+            <h2 class="quiz-title">Test Your Knowledge: Urinary System Quiz</h2>
             
             <div class="question">
                 <h3>1. What is the primary function of the kidneys?</h3>
                 <div class="options">
-                    <div class="option">A) Pump blood</div>
-                    <div class="option">B) Filter waste from blood</div>
-                    <div class="option">C) Digest food</div>
-                    <div class="option">D) Produce hormones</div>
+                    <div class="option">A) Pump blood throughout the body</div>
+                    <div class="option">B) Filter waste from blood and produce urine</div>
+                    <div class="option">C) Digest food and absorb nutrients</div>
+                    <div class="option">D) Produce hormones for growth</div>
                 </div>
             </div>
             
@@ -351,11 +497,11 @@
             <button class="submit-btn" id="submit-quiz">Submit Answers</button>
             
             <div class="result" id="quiz-result"></div>
-        </section>
+        </div>
     </div>
     
     <footer>
-        <p>© 2023 Human Urinary System Educational Website | Designed for Class 8 Science Students</p>
+        <p>© 2023 3D Urinary System Explorer | Designed for Class 8 Science Students</p>
     </footer>
 
     <script>
@@ -363,19 +509,56 @@
         const organInfo = {
             kidneys: {
                 title: "Kidneys",
-                description: "The kidneys are two bean-shaped organs located on either side of the spine, just below the rib cage. They filter waste products from the blood and produce urine. Each kidney contains about one million tiny filtering units called nephrons. The kidneys also help regulate blood pressure, produce red blood cells, and maintain the balance of minerals and water in the body."
+                content: `<h3>Kidneys</h3>
+                <p>The kidneys are two bean-shaped organs located on either side of the spine, just below the rib cage. Each kidney is about 4-5 inches long, roughly the size of a fist.</p>
+                <p><strong>Functions:</strong></p>
+                <ul>
+                    <li>Filter waste products from the blood</li>
+                    <li>Produce urine by removing excess water and wastes</li>
+                    <li>Regulate blood pressure</li>
+                    <li>Balance electrolytes like sodium, potassium, and phosphate</li>
+                    <li>Produce erythropoietin, which stimulates red blood cell production</li>
+                </ul>
+                <p>Each kidney contains about one million tiny filtering units called nephrons. Blood enters the kidneys through the renal artery and leaves through the renal vein.</p>`
             },
             ureters: {
                 title: "Ureters",
-                description: "The ureters are two thin tubes, each about 25-30 cm long, that carry urine from the kidneys to the bladder. Muscles in the ureter walls continually tighten and relax to force urine downward and away from the kidneys. A small amount of urine is passed into the bladder every 10-15 seconds through these peristaltic movements."
+                content: `<h3>Ureters</h3>
+                <p>The ureters are two thin tubes, each about 25-30 cm long, that carry urine from the kidneys to the bladder.</p>
+                <p><strong>Structure and Function:</strong></p>
+                <ul>
+                    <li>Made of smooth muscle fibers</li>
+                    <li>Use peristalsis (wave-like contractions) to move urine</li>
+                    <li>Prevent backflow of urine with one-way valves</li>
+                    <li>Each ureter connects to the bladder at an angle</li>
+                </ul>
+                <p>It takes about 10-15 seconds for urine to travel from the kidney to the bladder through the ureters. The walls of the ureters continually tighten and relax to force urine downward.</p>`
             },
             bladder: {
                 title: "Bladder",
-                description: "The bladder is a hollow, muscular organ shaped like a balloon that sits in the pelvis. It stores urine until it's time to urinate. A healthy adult bladder can hold up to 400-600 ml of urine. The bladder wall relaxes as it fills with urine and contracts when emptying. The brain signals when the bladder is full, creating the urge to urinate."
+                content: `<h3>Urinary Bladder</h3>
+                <p>The bladder is a hollow, muscular organ shaped like a balloon that sits in the pelvis. It stores urine until it's time to urinate.</p>
+                <p><strong>Characteristics:</strong></p>
+                <ul>
+                    <li>Can hold up to 400-600 ml of urine (about 2-3 cups)</li>
+                    <li>Made of smooth muscle tissue called detrusor muscle</li>
+                    <li>Lined with transitional epithelium that stretches</li>
+                    <li>Has two sphincters that control urine release</li>
+                </ul>
+                <p>When empty, the bladder is about the size of a pear. As it fills with urine, it expands upward into the abdominal cavity. The brain signals when the bladder is full, creating the urge to urinate.</p>`
             },
             urethra: {
                 title: "Urethra",
-                description: "The urethra is the tube that carries urine from the bladder to the outside of the body. In males, the urethra is about 20 cm long and also carries semen. In females, the urethra is much shorter, about 4 cm long. A ring of muscles called the sphincter keeps the urethra closed to prevent leakage until you're ready to urinate."
+                content: `<h3>Urethra</h3>
+                <p>The urethra is the tube that carries urine from the bladder to the outside of the body.</p>
+                <p><strong>Male Urethra:</strong></p>
+                <ul>
+                    <li>About 20 cm (8 inches) long</li>
+                    <li>Passes through the prostate gland and penis</li>
+                    <li>Also carries semen during ejaculation</li>
+                    <li>Has two sphincters to control urination</li>
+                </ul>
+                <p>The urethra is lined with mucous membrane and has muscles that help control the flow of urine. A ring of muscles called the sphincter keeps the urethra closed to prevent leakage until you're ready to urinate.</p>`
             }
         };
 
@@ -385,67 +568,21 @@
                 const organId = organ.id;
                 const info = organInfo[organId];
                 
-                document.getElementById('organ-info').innerHTML = `
-                    <h3>${info.title}</h3>
-                    <p>${info.description}</p>
-                `;
-            });
-        });
-
-        // Gender selector functionality
-        const maleBtn = document.getElementById('male-btn');
-        const femaleBtn = document.getElementById('female-btn');
-        const anatomyModel = document.getElementById('anatomy-model');
-        
-        maleBtn.addEventListener('click', () => {
-            maleBtn.classList.add('active');
-            femaleBtn.classList.remove('active');
-            
-            // Update the model for male (default view)
-            anatomyModel.innerHTML = `
-                <div class="organ" id="kidneys" style="left: 150px; top: 80px; width: 120px; height: 60px; background-color: #ff6b6b; border-radius: 30px;"></div>
-                <div class="organ" id="ureters" style="left: 160px; top: 150px; width: 10px; height: 120px; background-color: #4ecdc4;"></div>
-                <div class="organ" id="bladder" style="left: 120px; top: 270px; width: 90px; height: 70px; background-color: #ffe66d; border-radius: 20px 20px 0 0;"></div>
-                <div class="organ" id="urethra" style="left: 155px; top: 340px; width: 8px; height: 50px; background-color: #4ecdc4;"></div>
-            `;
-            
-            // Reattach event listeners to the new organs
-            document.querySelectorAll('.organ').forEach(organ => {
-                organ.addEventListener('click', () => {
-                    const organId = organ.id;
-                    const info = organInfo[organId];
-                    
-                    document.getElementById('organ-info').innerHTML = `
-                        <h3>${info.title}</h3>
-                        <p>${info.description}</p>
-                    `;
+                document.getElementById('info-content').innerHTML = info.content;
+                
+                // Remove highlight from all organs
+                document.querySelectorAll('.organ').forEach(o => {
+                    o.classList.remove('highlight');
+                    o.classList.remove('pulse');
                 });
-            });
-        });
-        
-        femaleBtn.addEventListener('click', () => {
-            femaleBtn.classList.add('active');
-            maleBtn.classList.remove('active');
-            
-            // Update the model for female (shorter urethra)
-            anatomyModel.innerHTML = `
-                <div class="organ" id="kidneys" style="left: 150px; top: 80px; width: 120px; height: 60px; background-color: #ff6b6b; border-radius: 30px;"></div>
-                <div class="organ" id="ureters" style="left: 160px; top: 150px; width: 10px; height: 120px; background-color: #4ecdc4;"></div>
-                <div class="organ" id="bladder" style="left: 120px; top: 270px; width: 90px; height: 70px; background-color: #ffe66d; border-radius: 20px 20px 0 0;"></div>
-                <div class="organ" id="urethra" style="left: 155px; top: 340px; width: 8px; height: 30px; background-color: #4ecdc4;"></div>
-            `;
-            
-            // Reattach event listeners to the new organs
-            document.querySelectorAll('.organ').forEach(organ => {
-                organ.addEventListener('click', () => {
-                    const organId = organ.id;
-                    const info = organInfo[organId];
-                    
-                    document.getElementById('organ-info').innerHTML = `
-                        <h3>${info.title}</h3>
-                        <p>${info.description}</p>
-                    `;
-                });
+                
+                // Add highlight to clicked organ
+                organ.classList.add('highlight');
+                
+                // Remove pulse animation after selection
+                setTimeout(() => {
+                    organ.classList.remove('pulse');
+                }, 1000);
             });
         });
 
@@ -473,6 +610,9 @@
                     const userAnswer = selectedOption.textContent.trim().charAt(0);
                     if (userAnswer === answers[index]) {
                         score++;
+                        selectedOption.style.background = 'rgba(0, 255, 0, 0.3)';
+                    } else {
+                        selectedOption.style.background = 'rgba(255, 0, 0, 0.3)';
                     }
                 }
             });
@@ -481,14 +621,11 @@
             resultElement.textContent = `You scored ${score} out of ${answers.length}!`;
             
             if (score >= 8) {
-                resultElement.style.backgroundColor = '#c6f6d5';
-                resultElement.style.color = '#22543d';
+                resultElement.style.background = 'rgba(0, 200, 0, 0.3)';
             } else if (score >= 5) {
-                resultElement.style.backgroundColor = '#feebc8';
-                resultElement.style.color = '#744210';
+                resultElement.style.background = 'rgba(255, 165, 0, 0.3)';
             } else {
-                resultElement.style.backgroundColor = '#fed7d7';
-                resultElement.style.color = '#742a2a';
+                resultElement.style.background = 'rgba(255, 0, 0, 0.3)';
             }
         });
         
